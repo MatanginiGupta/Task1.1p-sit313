@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matangini's Personal Website</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Times New Roman', Times, serif, sans-serif;
+      background: linear-gradient(135deg, #0c1411, #c3e8d8);
+    }
+
+    header {
+      background-color: #202022;
+      color: #166348;
+      text-align: left;
+      padding: 20px;
+    }
+
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+
+    nav li {
+      margin-right: 20px;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 18px;
+      position: relative;
+    }
+
+    nav a:after {
+      content: "|";
+      margin-left: 20px;
+      color: #fff;
+    }
+
+    nav a:last-child:after {
+      content: "";
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .header-image {
+      position: relative;
+      width: 100%;
+      height: 40vh;
+      background-image: url('deakinuni.jpg');
+      background-size: cover;
+      background-position: center;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #eaeae9;
+    }
+
+    .hover-effect {
+      display: none;
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 30px;
+    }
+
+    .header-image:hover .hover-effect {
+      display: block;
+    }
+
+    main {
+      padding: 10px;
+    }
+
+    .profile {
+      text-align: center;
+    }
+
+    .profile img {
+      width: 150px;
+      height: 170px;
+      border-radius: 50%;
+    }
+
+    .job-description {
+      font-weight: bolder;
+      margin-top: 10px;
+      color: #f4f9f4
+    }
+
+    .project {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .project1 img {
+      width: 450px;
+      height: 530px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+
+    .project2 img {
+      width: 400px;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+    
+    .project p {
+      color: #861919;
+    }
+
+    .image-gallery {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(150px, 1fr)); /* Four images in a row */
+      gap: 10px;
+      padding: 20px;
+      justify-content: center;
+    }
+    .image-gallery img {
+      width: 100%;
+      height: auto;
+      border-radius: 5px;
+    }
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+      .project,
+      .image,
+      .text,
+      .youtube {
+        order: initial;
+      }
+
+      .image img {
+        width: 100%; /* To adjust the width of the image to fit the screen */
+      }
+    }
+    @media (max-width: 768px) {
+      .image-gallery {
+        grid-template-columns: repeat(1, minmax(150px, 1fr)); /* Two images in a row for smaller screens */
+      }
+    }
+    @media (max-width: 480px) {
+      .image-gallery {
+        grid-template-columns: repeat(1, minmax(150px, 1fr)); /* One image in a row for even smaller screens */
+      }
+    }
+    /* Center the gallery heading */
+    #gallery h2 {
+      text-align: center;
+    }
+  
+    .lightbox-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(219, 220, 217, 0.8);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .lightbox-img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 5px;
+    }
+
+    /* Show the lightbox overlay when an image is clicked */
+    .image-gallery img {
+      cursor: pointer;
+    }
+
+    #contact {
+      background-color: #3a3f3dc8;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    #contact h2 {
+      margin-bottom: 10px;
+      text-decoration: underline;
+      font-weight: bold;
+      font-style: italic;
+    }
+
+    #contact p {
+      font-size: 18px;
+    }
+
+    #contact ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    #contact li {
+      margin: 10px 0;
+    }
+
+    #contact a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      font-style: italic;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap; /* Allows the flex items to wrap if the container is not wide enough */
+    }
+
+    .project {
+      flex: 1;
+      order: 1; /* Project section will appear first */
+      padding: 10px;
+      text-align: center;
+    }
+
+    .image {
+      flex: 1;
+      order: 2; /* Image section will appear second */
+      padding: 10px;
+      text-align: center;
+    }
+
+    .text {
+      flex: 1;
+      order: 3; /* Text section will appear third */
+      padding: 10px;
+      text-align: left;
+      font-size: 28px;
+    }
+
+    .youtube {
+      flex: 1;
+      order: 4; /* YouTube video section will appear fourth */
+      padding: 10px;
+      text-align: center;
+    }
+
+    .image img {
+      max-width: 100%;
+      height: auto;
+      width: 350px; /* To adjust the width of the image as needed */
+    }
+
+    .youtube iframe {
+      width: 100%;
+      height: 315px; /* To adjust the height of the YouTube video as needed */
+    }
+
+</style>
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#contact">Contact</a></li>
+
+      </ul>
+    </nav>
+  </header>
+
+  <div class="header-image">
+    <span class="hover-effect">Hey, I'm Matangini Gupta!</span>
+  </div>
+
+  <main>
+    <section id="about">
+      <div class="profile">
+        <img src="mainprofilephoto.jpg" alt="Matangini Gupta">
+        <p class="job-description">U-G B.E Software Engineering student |Full stack Web Developer based in Chandigarh,
+          INDIA</p>
+        <p class="job-description">---------------------------------------</p>
+        <p class="job-description">HERE'S THE WORK I'VE ACCOMPLISHED SO FAR!</p>
+      </div>
+    </section>
+
+    <section id="work">
+      <div class="container">
+        
+        <div class="image">
+          <img src="proj1.jpg" alt="Image">
+        </div>
+        <div class="text">
+          <h3>Project 1: 'Sort-O-matic' (To eradicate the traditional methods of hand sorting)</h3>
+        </div>
+        <div class="youtube">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/Qq5frsoYOCw" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <div class="container">
+        
+        <div class="image">
+          <img src="proj2.jpg" alt="Image">
+        </div>
+        <div class="text">
+        <h3>Project 2: Elderly Care-O-Bot (To eradicate human intervention in old-age homes)</h3>
+        </div>
+        <div class="youtube">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/hU65sSMMj8Y" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <div class="container">
+        
+        <div class="image">
+          <img src="proj3.jpg" alt="Image">
+        </div>
+        <div class="text">
+          <h3>Project 3: To depict Serial communication via Bluetooth (transmitter and reciever)</h3>
+        </div>
+        <div class="youtube">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/dW-kduNNLVM" frameborder="0" allowfullscreen></iframe>
+          <p><a href="https://github.com/MatanginiGupta/Robotics-project-main" target="_blank">Project's GitHub Repository right here! https://github.com/MatanginiGupta/Robotics-project-main
+          </a></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery">
+      <h2>---------------------</h2>
+      <h2>My Image Gallery!!!</h2>
+      <div class="image-gallery">
+        <img src="gal1.jpg" alt="Image 1"onclick="showLightbox('gal1.jpg')">
+        <img src="newgal2.jpg" alt="Image 2"onclick="showLightbox('newgal2.jpg')">
+        <img src="gal3.jpg" alt="Image 3"onclick="showLightbox('gal3.jpg')">
+        <img src="gal4.jpg" alt="Image 4"onclick="showLightbox('gal4.jpg')">
+        <img src="gal5.jpg" alt="Image 5"onclick="showLightbox('gal5.jpg')">
+        <img src="gal6.jpg" alt="Image 6"onclick="showLightbox('gal6.jpg')">
+        <img src="gal7.jpg" alt="Image 7"onclick="showLightbox('gal7.jpg')">
+        <img src="newgal8.jpg" alt="Image 8"onclick="showLightbox('newgal8.jpg')">
+        <img src="newgal9.jpg" alt="Image 9"onclick="showLightbox('newgal9.jpg')">
+        <img src="newgal10.jpg" alt="Image 10"onclick="showLightbox('newgal10.jpg')">
+      </div>
+    </section>
+
+    <div class="lightbox-overlay" onclick="hideLightbox()">
+    <img class="lightbox-img" src="" alt="Gallery Image">
+    </div>
+  
+    <script>
+      // JavaScript function to show the lightbox with the clicked image
+      function showLightbox(imageSrc) {
+        const lightbox = document.querySelector('.lightbox-overlay');
+        const lightboxImg = lightbox.querySelector('.lightbox-img');
+        lightboxImg.src = imageSrc;
+        lightbox.style.display = 'flex';
+      }
+  
+      // JavaScript function to hide the lightbox
+      function hideLightbox() {
+        const lightbox = document.querySelector('.lightbox-overlay');
+        lightbox.style.display = 'none';
+      }
+
+    </script>
+    <section id="contact">
+      <h2>My Contact Details</h2>
+      <p>If you'd like to get in touch with me, feel free to reach out through any of the following channels:</p>
+      <ul>
+        <li>Email: <a href="matanginigupta1811@gmail.com">matanginigupta1811@gmail.com</a></li>
+        <li>GitHub: <a href="https://github.com/MatanginiGupta" target="_blank">https://github.com/MatanginiGupta</a></li>
+        <li>Phone: +91 9888422055</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>
